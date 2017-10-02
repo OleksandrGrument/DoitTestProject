@@ -1,0 +1,41 @@
+<resources>
+
+    <string name="app_name">DoitTestProject</string>
+
+    <!--Login Activity-->
+    <string name="login_button_text">Login</string>
+    <string name="login_password_text">password</string>
+    <string name="login_email_text">email</string>
+    <string name="login_account_avatar">avatar image</string>
+    <string name="login_sign_up">sign up</string>
+
+    <!--Registration Activity-->
+    <string name="registration_user_name">name </string>
+    <string name="registration_user_email">email</string>
+    <string name="registration_user_password">password</string>
+    <string name="registration_user_confirm_password">confirm password</string>
+    <string name="registration_sign_up">sign up</string>
+
+    <!--Registration Pick Avatar Activity -->
+    <string name="registration_pick_avatar">pick avatar</string>
+    <string name="registration_continue">continue</string>
+
+    <!--Upload Image Activity-->
+    <string name="hash_tag">#hashtag</string>
+    <string name="description">description</string>
+    <string name="upload_start">uploading...</string>
+
+    <!-- Exit Alert Dialog-->
+    <string name="exit_dialog_title">Do you want logout or exit?</string>
+    <string name="exit">Exit</string>
+    <string name="logout">Logout</string>
+
+
+    <!--Error texts-->
+    <string name="registration_error">Oops. user with this email exist</string>
+    <string name="authorization_error">Oops. Please check again password or login</string>
+    <string name="registration_enter_email_error">Oops. Enter email please</string>
+    <string name="pick_up_image_error">Oops. Please choose image and press check</string>
+    <string name="upload_error">Oops. Something went wrong please check internet connection</string>
+
+</resources>
