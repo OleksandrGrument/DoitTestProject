@@ -2,7 +2,7 @@
 
 Test task for position Android developer
 
-Task description
+Task description:
 
 Create an application based on existing API.
 
