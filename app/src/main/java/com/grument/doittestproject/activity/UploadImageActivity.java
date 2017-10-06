@@ -4,8 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,7 +15,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -142,7 +139,7 @@ public class UploadImageActivity extends BaseActionBarActivity implements Google
 
                 RequestBody requestFile =
                         RequestBody.create(
-                                MediaType.parse(getContentResolver().getType(imageFileUri)),
+                                MediaType.parse("image/*"),
                                 imageFile
                         );
 

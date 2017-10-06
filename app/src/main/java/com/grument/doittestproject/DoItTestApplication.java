@@ -1,6 +1,8 @@
 package com.grument.doittestproject;
 
-import android.app.Application;
+import android.annotation.TargetApi;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
 import com.grument.doittestproject.util.FakeCrashLibrary;
@@ -8,13 +10,24 @@ import com.grument.doittestproject.util.FakeCrashLibrary;
 import timber.log.Timber;
 
 
-public class DoItTestApplication extends Application{
+import static android.os.Build.VERSION_CODES.LOLLIPOP_MR1;
+
+
+public class DoItTestApplication extends MultiDexApplication{
 
 
     @Override
     public void onCreate() {
         super.onCreate();
+        MultiDex.install(this);
 
+        plantTimber();
+
+    }
+
+
+    @TargetApi(LOLLIPOP_MR1)
+    private void plantTimber(){
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         } else {

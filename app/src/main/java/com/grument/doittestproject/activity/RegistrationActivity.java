@@ -3,6 +3,7 @@ package com.grument.doittestproject.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -79,9 +80,10 @@ public class RegistrationActivity extends BaseFullscreenActivity {
         Uri imageFileUri = (Uri) getIntent().getExtras().get("imageFileUri");
         File imageFile = new File(PathUtil.getPath(RegistrationActivity.this, imageFileUri));
 
+
         RequestBody requestFile =
                 RequestBody.create(
-                        MediaType.parse(getContentResolver().getType(imageFileUri)),
+                        MediaType.parse("image/*"),
                         imageFile
                 );
 
