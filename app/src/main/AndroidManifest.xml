@@ -35,7 +35,7 @@
         <activity android:name=".activity.RegistrationPickAvatarActivity" />
         <activity android:name=".activity.DashboardActivity" />
         <activity android:name=".activity.UploadImageActivity" />
-        <activity android:name=".activity.QuitActivity"></activity>
+        <activity android:name=".activity.QuitActivity" />
     </application>
 
 </manifest>

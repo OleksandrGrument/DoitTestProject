@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
-
 import com.grument.doittestproject.util.FakeCrashLibrary;
 
 import timber.log.Timber;
@@ -57,6 +56,9 @@ public class DoItTestApplication extends MultiDexApplication{
             }
         }
     }
+
+
+
 }
 
 

@@ -7,6 +7,10 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.text.Editable;
 import android.util.TypedValue;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -64,5 +68,30 @@ public class AppUtil {
     public static int dpToPx(Context context, int dp) {
         Resources r = context.getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+    }
+
+    public static boolean checkIfEditTextAndHideKeyboard(Activity activity , MotionEvent motionEvent ,boolean ret) {
+        View view = activity.getCurrentFocus();
+
+        if (view instanceof EditText) {
+            View w = activity.getCurrentFocus();
+            int scrcoords[] = new int[2];
+            w.getLocationOnScreen(scrcoords);
+            float x = motionEvent.getRawX() + w.getLeft() - scrcoords[0];
+            float y = motionEvent.getRawY() + w.getTop() - scrcoords[1];
+
+            if (motionEvent.getAction() == MotionEvent.ACTION_UP
+                    && (x < w.getLeft() || x >= w.getRight()
+                    || y < w.getTop() || y > w.getBottom())) {
+                InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(activity.getWindow().getCurrentFocus().getWindowToken(), 0);
+            }
+        }
+        return ret;
+    }
+
+
+    public static boolean isStringNotEmpty(String string){
+        return string != null && string.length() > 0;
     }
 }

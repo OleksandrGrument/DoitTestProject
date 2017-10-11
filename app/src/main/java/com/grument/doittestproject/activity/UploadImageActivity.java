@@ -8,13 +8,13 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -24,6 +24,7 @@ import com.grument.doittestproject.retrofit.RetrofitRequestResponseService;
 import com.grument.doittestproject.activity.base.BaseActionBarActivity;
 import com.grument.doittestproject.util.AppUtil;
 import com.grument.doittestproject.util.FileGpsUtil;
+import com.grument.doittestproject.util.ImageUtil;
 import com.grument.doittestproject.util.PathUtil;
 import com.grument.doittestproject.util.PermissionManager;
 import com.grument.doittestproject.util.PreferenceHelper;
@@ -40,6 +41,7 @@ import okhttp3.RequestBody;
 import timber.log.Timber;
 
 import static com.grument.doittestproject.util.Constants.PICK_PHOTO_FOR_AVATAR;
+
 
 public class UploadImageActivity extends BaseActionBarActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
@@ -74,6 +76,7 @@ public class UploadImageActivity extends BaseActionBarActivity implements Google
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_image);
         ButterKnife.bind(this);
+
         preferenceHelper = new PreferenceHelper(this);
 
         googleApiClient = new GoogleApiClient.Builder(this, this, this).addApi(LocationServices.API).build();
@@ -132,19 +135,20 @@ public class UploadImageActivity extends BaseActionBarActivity implements Google
         if (item.getItemId() == R.id.bt_upload_image) {
             if (isImagePicked) {
 
+
                 disableInputs();
 
-                File imageFile = new File(PathUtil.getPath(this,imageFileUri));
-
+                File imageFile = new File(PathUtil.getPath(this, imageFileUri));
+                File scaledImageFile = new ImageUtil(this, imageFile, imageFileUri).scaleImageAndReturnFile();
 
                 RequestBody requestFile =
                         RequestBody.create(
                                 MediaType.parse("image/*"),
-                                imageFile
+                                scaledImageFile
                         );
 
                 MultipartBody.Part imageBody =
-                        MultipartBody.Part.createFormData("image", imageFile.getName(), requestFile);
+                        MultipartBody.Part.createFormData("image", scaledImageFile.getName(), requestFile);
 
                 FileGpsUtil fileGpsUtil = new FileGpsUtil(imageFileUri.getPath());
 
@@ -152,15 +156,14 @@ public class UploadImageActivity extends BaseActionBarActivity implements Google
                 String latitude = "0";
                 String longitude = "0";
 
-                if (lastLocation != null) {
-                    latitude = String.valueOf(lastLocation.getLatitude());
-                    longitude = String.valueOf(lastLocation.getLongitude());
-                } else if (fileGpsUtil.getCoordinates() != null) {
+
+                if (fileGpsUtil.getCoordinates() != null) {
                     latitude = fileGpsUtil.getCoordinates().getStringLatitude();
                     longitude = fileGpsUtil.getCoordinates().getStringLongitude();
+                } else if (lastLocation != null) {
+                    latitude = String.valueOf(lastLocation.getLatitude());
+                    longitude = String.valueOf(lastLocation.getLongitude());
                 }
-
-                Log.i("LONGITUDE", latitude + " " + longitude);
 
 
                 retrofitRequestResponseService.uploadImage(

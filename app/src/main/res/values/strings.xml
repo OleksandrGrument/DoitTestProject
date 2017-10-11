@@ -30,6 +30,9 @@
     <string name="exit">Exit</string>
     <string name="logout">Logout</string>
 
+    <!--Dashboard Item-->
+    <string name="dashboard_weather">Sunny weather</string>
+    <string name="dashboard_address">Sample St,8a, Kyiv, Ukraine</string>
 
     <!--Error texts-->
     <string name="registration_error">Oops. user with this email exist</string>

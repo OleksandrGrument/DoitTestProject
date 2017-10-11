@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
-
 import com.bumptech.glide.Glide;
 import com.grument.doittestproject.R;
 import com.grument.doittestproject.retrofit.RetrofitBuilder;
@@ -46,11 +45,12 @@ public class GifFragmentDialog extends DialogFragment {
                 .subscribe(loadGifResponse -> {
                     if (loadGifResponse.isSuccessful()) {
 
-                        Glide.with(this)
+                       Glide.with(this)
                                 .load(loadGifResponse.body().getGifUrlPath())
                                 .asGif()
                                 .error(R.drawable.gif_default)
                                 .centerCrop()
+                                .override(gifImageView.getWidth(), gifImageView.getHeight())
                                 .into(gifImageView);
 
                     }

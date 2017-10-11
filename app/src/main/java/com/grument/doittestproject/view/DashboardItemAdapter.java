@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.grument.doittestproject.R;
 import com.grument.doittestproject.dto.ImageDTO;
+import com.grument.doittestproject.dto.ImageParamsDTO;
+import com.grument.doittestproject.util.AppUtil;
 
 import java.util.List;
 
@@ -40,9 +42,13 @@ public class DashboardItemAdapter extends RecyclerView.Adapter<DashboardItemAdap
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         ImageDTO imageDTO = imageDTOList.get(position);
+        ImageParamsDTO imageParamsDTO = imageDTO.getImageParamsDTO();
 
-        holder.addressTextView.setText(imageDTO.getImageParamsDTO().getAddress());
-        holder.weatherTextView.setText(imageDTO.getImageParamsDTO().getWeather());
+        if (AppUtil.isStringNotEmpty(imageParamsDTO.getAddress()))
+            holder.addressTextView.setText(imageParamsDTO.getAddress());
+
+        if (AppUtil.isStringNotEmpty(imageParamsDTO.getWeather()))
+            holder.weatherTextView.setText(imageParamsDTO.getWeather());
 
         Glide.with(context)
                 .load(imageDTO.getSmallImageUrlPath())
@@ -77,4 +83,5 @@ public class DashboardItemAdapter extends RecyclerView.Adapter<DashboardItemAdap
             ButterKnife.bind(this, itemView);
         }
     }
+
 }
